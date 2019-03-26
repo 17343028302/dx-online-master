@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>首页--layui后台管理模板 2.0</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote layui-bg-green">
+		<div id="nowTime"></div>
+	</blockquote>
+	<div class="layui-row layui-col-space10">
+		<div class="layui-col-lg6 layui-col-md12">
+			<blockquote class="layui-elem-quote title">快速取车通道</blockquote>
+			<div class="childrenBody">
+				<form class="layui-form">
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 30%">司机手机号：</label>
+						<div class="layui-input-block">
+							<input type="text" class="layui-input" lay-verify="required" style="width: 70%;margin-top: 20px;" placeholder="请输入司机手机号" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 30%">取车码：</label>
+						<div class="layui-input-block">
+							<input type="text" class="layui-input" lay-verify="required|url" style="width: 70%" placeholder="请输入取车码" />
+						</div>
+					</div>
+					<div class="layui-form-item input-item" style="text-align: center">
+						<button class="layui-btn layui-center" style="width: 150px;">快速取车</button>
+					</div>
+				</form>
+			</div>
+			<blockquote class="layui-elem-quote title">实时数据</blockquote>
+			<table class="layui-table mag0">
+				<colgroup>
+					<col>
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>
+							<div class="layui-col-md3 panel_img">
+								<img src="../images/u55.png"/>
+							</div>
+							<div class="layui-col-md9">
+								<div>订单信息</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">订单数据：5</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
+								<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多订单数据>></a></div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-col-md3 panel_img">
+								<img src="../images/u48.png"/>
+							</div>
+							<div class="layui-col-md9">
+								<div>车辆信息</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">已租出：5</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">待租出：5</div>
+								<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多车辆数据>></a></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-col-md3 panel_img">
+								<img src="../images/u56.png"/>
+							</div>
+							<div class="layui-col-md9">
+								<div>用户信息</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">待审核用户：5</div>
+							<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">已审核用户：5</div>
+							<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多用户数据>></a></div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-col-md3 panel_img">
+								<img src="../images/u71.png"/>
+							</div>
+							<div class="layui-col-md9">
+								<div>押金数据</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">押金总额：￥5000</div>
+							<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多押金数据>></a></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-col-md3 panel_img">
+								<img src="../images/u97.png"/>
+							</div>
+							<div class="layui-col-md9">
+								<div>今日总收入</div>
+								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">今日订单总收入：15000</div>
+							<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">今日押金总收入：15000</div>
+							</div>
+						</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="layui-col-lg6 layui-col-md12">
+			<blockquote class="layui-elem-quote title">待办事项</blockquote>
+			<table class="layui-table magt0">
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u90.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>延时待处理订单</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u109.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>押金退款申请</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">申请数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u98.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>待查违章订单</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u100.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>待办年检车辆</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u109.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>待保养车辆</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="panel">
+							<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+								<div class="layui-col-md2 panel_img">
+									<img src="../images/u114.png"/>
+								</div>
+								<div class="layui-col-md10 panel_word" style="text-align: left;">
+									<div>待续保车辆</div>
+									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+								</div>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+	</div>
+
+	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+</body>
+</html>
