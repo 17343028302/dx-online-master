@@ -1,7 +1,13 @@
-layui.use(['form','layer','jquery'],function(){
+layui.config({
+    base : "../../js/"
+}).extend({
+    "httpUtil" : "httpUtil"
+})
+layui.use(['jquery','form','layer','httpUtil'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
+      let httpUtil = layui.httpUtil;
 
     $(".loginBody .seraph").click(function(){
         layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
@@ -28,11 +34,16 @@ layui.use(['form','layer','jquery'],function(){
     }
 
     var createToken = function(callback){
+        let obj = {};
+        var sign = httpUtil.parseParams(obj);
+        obj.sign = sign;
+        console.log(obj);
         $.ajax({
-            url: "/user/erp/token/create",
+            url: "https://qa-api.dxzaixian.com/user/erp/token/create",
             type: "POST",
+            contentType: 'application/x-www-form-urlencoded',
             async: true,
-            data: {},
+            data: obj,
             dataType:"json",
             success: function (data) {
                 callback(data);
@@ -44,6 +55,14 @@ layui.use(['form','layer','jquery'],function(){
 
     //获取验证码
     $("#getCode").click(function () {
+        var phone = $("#phone").val();
+        if(phone == null || phone == '' || phone == 'undifined'){
+            layer.msg("请填写手机号！",{
+                time:2000
+            });
+            return false;
+        }
+        console.log(layui.cache.dxurl);
         time($(this),60);
         createToken(function (data) {
             if(data.status != 0){
@@ -54,15 +73,19 @@ layui.use(['form','layer','jquery'],function(){
                 return false;
             }
             var phone  = $("#phone").val();
+            let obj = {
+                phone:phone,
+                token:data.data
+            };
+            var sign = httpUtil.parseParams(obj);
+            obj.sign = sign;
+            console.log(obj);
             $.ajax({
+                url: "https://qa-api.dxzaixian.com/user/erp/sms/sendCode",
                 type: 'POST',
-                url: "/user/erp/sms/sendCode",
+                contentType: 'application/x-www-form-urlencoded',
+                data: obj,
                 dataType: 'json',
-                contentType: "application/json",
-                data: {
-                    phone:phone,
-                    token:data.data
-                },
                 success: function (data) {
                     if (data.status === 0) {
                         console.log("成功了!!!status:"+data.status+"msg:"+data.msg+"data"+data.data);
@@ -86,9 +109,6 @@ layui.use(['form','layer','jquery'],function(){
     //登录按钮
     form.on("submit(login)",function(data){
         $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-        var phone = $("#phone").val();
-        var code = $("#code").val();
-        console.log(phone+"--"+code);
         var token = window.sessionStorage.getItem("dxToken");
         if(!token){
             layer.msg("系统错误！",{
@@ -96,19 +116,20 @@ layui.use(['form','layer','jquery'],function(){
             });
             return false;
         }
+        let obj = {
+            phone:$("#phone").val(),
+            code:$("#code").val(),
+            token:token
+        };
+        var sign = httpUtil.parseParams(obj);
+        obj.sign = sign;
+        console.log(obj);
         $.ajax({
+            url: "https://qa-api.dxzaixian.com/user/erp/user/login",
             type: 'POST',
-            url: "/user/erp/user/login",
+            contentType: 'application/x-www-form-urlencoded',
+            data: obj,
             dataType: 'json',
-            contentType: "application/json",
-            /*beforeSend: function (XMLHttpRequest) {
-                XMLHttpRequest.setRequestHeader("platform", 2).setRequestHeader("uuid","321321321");
-            },*/
-            data: {
-                phone:phone,
-                code:code,
-                token:token
-            },
             success: function (data) {
                 if (data.code === 200) {
                     console.log("成功了!!!code:"+data.code+"message:"+data.message+"body"+data.body);
