@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>登录--layui后台管理模板 2.0</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="icon" href="../../favicon.ico">
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="">
+<form class="layui-form">
+	<blockquote class="layui-elem-quote quoteBox">
+		<form class="layui-form">
+			<div class="layui-row">
+				<div class="layui-inline">
+					<label class="layui-form-label">车牌号</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容" />
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">车辆类型</label>
+					<div class="layui-input-block">
+						<select name="city" lay-verify="required">
+							<option value="">请选择</option>
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">车辆状态</label>
+					<div class="layui-input-block">
+						<select name="city" lay-verify="required">
+							<option value="">请选择</option>
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row">
+				<div class="layui-inline">
+					<label class="layui-form-label">所属门店</label>
+					<div class="layui-input-block">
+						<select name="city" lay-verify="required">
+							<option value="">请选择</option>
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">发布门店</label>
+					<div class="layui-input-block">
+						<select name="city" lay-verify="required">
+							<option value="">请选择</option>
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<a class="layui-btn search_btn" data-type="reload">查询</a>
+				</div>
+			</div>
+
+		</form>
+	</blockquote>
+	<div class="layui-row" style="margin-bottom: 6px;margin-left: 10px">
+		<div class="layui-col-md3">
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-normal batchRelease">批量发布</a>
+			</div>
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-normal batchCancelRelease">批量取消发布</a>
+			</div>
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-normal batchDel">批量删除</a>
+			</div>
+		</div>
+		<div class="layui-col-md layui-col-md-offset11">
+			<div class="layui-inline">
+				<a class="layui-btn layui-btn-warm addNews_btn">+添加新车</a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<table id="vehicleList" lay-filter="userList"></table>
+
+	<!--操作-->
+	<script type="text/html" id="userListBar">
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑车辆详情</a>
+		<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">检修</a>
+		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="usable">取消发布</a>
+		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">发布</a>
+	</script>
+</form>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="vehicleList.js"></script>
+
+
+</body>
+</html>

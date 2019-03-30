@@ -44,7 +44,7 @@
 		{
 			"title": "车辆列表",
 			"icon": "&#xe612;",
-			"href": "page/user/userList.html",
+			"href": "page/vehicle/vehicleList.html",
 			"spread": false
 		},
 		{
