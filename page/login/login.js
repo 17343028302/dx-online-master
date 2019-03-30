@@ -20,7 +20,7 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
     var createToken = function (callback) {
         httpUtil.get('user/erp/token/create', {}).then(res => {
             if(res.status==0){
-                window.localStorage.setItem('dxToken', data);
+                window.localStorage.setItem('dxToken', res.data);
                 callback(res.data);
             }else{
                 console.log("接口响应，code:"+res.status+",message:"+res.message);
