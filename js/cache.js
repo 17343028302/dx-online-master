@@ -1,9 +1,5 @@
 var cacheStr = window.sessionStorage.getItem("cache"),
     oneLoginStr = window.sessionStorage.getItem("oneLogin");
-layui.config({
-    base: '../../js/',
-    dxurl: 'http://localhost:8080'
-});
 layui.use(['form','jquery',"layer"],function() {
     var form = layui.form,
         $ = layui.jquery,
