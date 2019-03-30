@@ -39,8 +39,8 @@ layui.use(['jquery','form','layer','httpUtil'],function(){
         obj.sign = sign;
         console.log(obj);
         $.ajax({
-            url: "https://qa-api.dxzaixian.com/user/erp/token/create",
-            type: "POST",
+            url: "/api/user/erp/token/create",
+            type: "GET",
             contentType: 'application/x-www-form-urlencoded',
             async: true,
             data: obj,
