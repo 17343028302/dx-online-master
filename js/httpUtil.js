@@ -1,7 +1,3 @@
-layui.config({
-    base: '/dx-online-master/js/'
-})
-
 layui.define(["form", "jquery"], function (exports) {
     var form = layui.form,
         $ = layui.jquery;
