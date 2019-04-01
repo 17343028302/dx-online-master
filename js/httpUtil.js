@@ -55,6 +55,7 @@ layui.define(["form", "jquery"], function (exports) {
                 url += `?sign=${sign}&${params}`;
                 console.log('application/json 特殊请求：', url);
             }
+            console.log("method:"+method+"，contentType:"+contentType+"，param："+params);
             var resData = {
                 status: 0,
                 message:"",
@@ -69,19 +70,10 @@ layui.define(["form", "jquery"], function (exports) {
                 dataType: "json",
                 success: function (response) {
                     console.log(response)
-                    if(response.statusCode==200){
-                        resData.status=response.data.status;
-                        resData.message=response.data.msg;
-                        resData.data=response.data.data;
-                        resove(resData);
-                    }else{
-                        console.log("网络请求失败，code:"+response.statusCode+",message:"+response.message);
-                        layer.msg("系统错误，请稍后再试！", {
-                            icon: 2,
-                            time: 2000
-                        });
-                        return false;
-                    }
+                    resData.status=response.status;
+                    resData.message=response.msg;
+                    resData.data=response.data;
+                    resove(resData);
                 }, error: function (jqXHR) {
                     layer.msg("系统错误，请稍后再试！", {
                         icon: 2,
