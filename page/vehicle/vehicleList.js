@@ -1,16 +1,18 @@
 layui.config({
-    base : ""
+    base : "../../js/"
 }).extend({
-
+    "httpUtil": "httpUtil",
 })
-layui.use(['form','layer','table','laytpl','vehicleOptionData'],function(){
+layui.use(['form','layer','table','laytpl','vehicleOptionData','httpUtil'],function(){
     var form = layui.form,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
+        //layer = parent.layer === undefined ? layui.layer : top.layer,
+        layer = layui.layer,
         $ = layui.jquery,
         laytpl = layui.laytpl,
         table = layui.table,
         vStatus = layui.vehicleOptionData;
-
+        httpUtil = layui.httpUtil;
+    httpUtil.md
 
 
     //车辆列表
@@ -56,7 +58,7 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData'],function(){
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
         if($(".searchVal").val() != ''){
-            table.reload("newsListTable",{
+            table.reload("vehicleListTable",{
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
@@ -68,20 +70,102 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData'],function(){
             layer.msg("请输入搜索的内容");
         }
     });
-
+    //批量发布弹窗
     $(".batchRelease").click(function(){
-        layui.open({
-            title :"批量发布",
-            type : 2,
-        })
-    })
 
-    //添加用户
-    function addvehicle(edit){
-        var index = layui.layer.open({
-            title : "批量发布",
+        layer.open({
+            area: ['550px', '280px'],
+            title :"批量发布",
+            //closeBtn : false,
             type : 2,
-            content : "vehicleRelease.html",
+            content: 'vehicleRelease.html'
+        })
+    });
+    //批量发布确认
+    $(".releaseConfirm").click(function(){
+        var checkStatus = table.checkStatus('vehicleListTable'),
+            data = checkStatus.data,
+            newsId = [];
+        if(data.length > 0) {
+            for (var i in data) {
+                newsId.push(data[i].id);
+            }
+            layer.confirm('是否确认将京H 34H5X  京E 67H5X 发布至门店 北京三元桥店?', {icon: 3, title:'是否确认发布',btn:['确认发布','取消'] }, function(index){
+                //do something
+
+                setTimeout(function () {
+                    //关闭父级弹窗
+                    parent.layer.close(index);
+                    tableIns.reload();
+                    layer.msg("发布成功")
+                },500)
+                return false;
+            });
+        }else {
+            layer.msg("请选择需要发布的车辆",{time:1000});
+        }
+    });
+    //批量取消发布
+    $(".batchCancelRelease").click(function(){
+        var checkStatus = table.checkStatus('vehicleListTable'),
+            data = checkStatus.data,
+            newsId = [];
+        if(data.length > 0) {
+            for (var i in data) {
+                newsId.push(data[i].id);
+            }
+            layer.confirm('是否确认门店 北京三元桥店中的 京H 34H5X  京E 67H5X 取消发布?', {icon: 3, title:'是否取消发布',btn:['确认取消发布','取消'] }, function(index){
+                //do something
+
+                setTimeout(function () {
+                    layer.close(index);
+                    tableIns.reload();
+                    //msg 第2参数指定icon 延迟时间等选项
+                    layer.msg("取消发布成功")
+                },500)
+               return false;
+            });
+        }else {
+            layer.msg("请选择取消发布的车辆",{time:1000});
+        }
+    });
+
+    //批量删除
+    $(".batchDel").click(function(){
+        var checkStatus = table.checkStatus('vehicleListTable'),
+            data = checkStatus.data,
+            newsId = [];
+        if(data.length > 0) {
+            for (var i in data) {
+                newsId.push(data[i].id);
+            }
+            layer.confirm('是否确认删除 京H 34H5X  京E 67H5X 的相关车辆信息?删除后如需重新使用，需要重新添加车辆。', {
+                icon: 3,
+                title: '是否批量删除',
+                btn: ['确认删除', '取消']
+            }, function (index) {
+                //do something
+
+                setTimeout(function () {
+                    layer.close(index);
+                    tableIns.reload();
+                    layer.msg("删除成功")
+                }, 500)
+                return false;
+            });
+        }else {
+            layer.msg("请选择需要删除的车辆",{time:1000});
+        }
+    });
+    //添加新车
+    $(".addVehicle_btn").click(function(){
+        addVehicle();
+    })
+    function addVehicle(edit){
+        var index = layer.open({
+            title : "添加新车",
+            type : 2,
+            content : "vehicleAdd.html",
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
@@ -100,35 +184,15 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData'],function(){
                 },500)
             }
         })
-        layui.layer.full(index);
+        /*layui.layer.full(index);
         window.sessionStorage.setItem("index",index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
         $(window).on("resize",function(){
             layui.layer.full(window.sessionStorage.getItem("index"));
-        })
+        })*/
     }
 
-    //批量删除
-    $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('userListTable'),
-            data = checkStatus.data,
-            newsId = [];
-        if(data.length > 0) {
-            for (var i in data) {
-                newsId.push(data[i].newsId);
-            }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
-            })
-        }else{
-            layer.msg("请选择需要删除的用户");
-        }
-    })
+
 
     //列表操作
     table.on('tool(userList)', function(obj){

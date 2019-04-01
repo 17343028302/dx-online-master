@@ -47,6 +47,7 @@ layui.define(["form", "jquery"], function (exports) {
                 signStr = `${secretKey}`
             }
             var sign = md5(signStr);
+            alert(sign)
             // var url = `${self.host}${cmd}?${params}&sign=${sign}`;
             var url = `${config.baseUrl}${cmd}`;
             if (contentType == 'application/x-www-form-urlencoded') {

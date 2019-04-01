@@ -50,7 +50,7 @@
 		{
 			"title": "添加新车",
 			"icon": "icon-vip",
-			"href": "page/user/userGrade.html",
+			"href": "page/vehicle/vehicleAdd.html",
 			"spread": false
 		},
 		{
