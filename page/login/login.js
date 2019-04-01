@@ -79,15 +79,15 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
 
     //登录按钮
     form.on("submit(login)", function (data) {
-        $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
         var token = window.localStorage.getItem("dxToken");
         if (!token) {
-            layer.msg("系统错误，请稍后再试！", {
+            layer.msg("请先获取验证码！", {
                 icon: 2,
                 time: 2000
             });
             return false;
         }
+        $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
         let obj = {
             phone: $("#phone").val(),
             code: $("#code").val(),
@@ -104,6 +104,7 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
                     icon: 2,
                     time: 2000
                 });
+                $(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
                 return false;
             }
         }).catch(error => {
