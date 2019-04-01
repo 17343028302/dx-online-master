@@ -2,7 +2,7 @@ layui.define(["form", "jquery"], function (exports) {
     var form = layui.form,
         $ = layui.jquery;
     var config = {
-        baseUrl: '/api'
+        baseUrl: 'http://dongximgr.zhuzhida.vip/api'
     }
 
     var dongxiHttp =
