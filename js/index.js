@@ -86,7 +86,7 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	//清除缓存
 	$(".clearCache").click(function(){
 		window.sessionStorage.clear();
-        window.localStorage.clear();
+        // window.localStorage.clear();
         var index = layer.msg('清除缓存中，请稍候',{icon: 16,time:false,shade:0.8});
         $(this).find("span").remove();//去除清除缓存小红点
         setTimeout(function(){

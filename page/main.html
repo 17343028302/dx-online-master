@@ -12,6 +12,23 @@
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../css/public.css" media="all" />
 </head>
+<style>
+	.actual{
+		margin-top:10px;
+		font-size: 12px;
+		color: #b2b2b2;
+	}
+	.actualMore{
+		margin-top:10px;
+		font-size: 12px;
+		float: right;
+	}
+	.need{
+		margin-top:5px;
+		font-size: 12px;
+		color: #b2b2b2;
+	}
+</style>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote layui-bg-green">
 		<div id="nowTime"></div>
@@ -52,9 +69,9 @@
 							</div>
 							<div class="layui-col-md9">
 								<div>订单信息</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">订单数据：5</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
-								<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多订单数据>></a></div>
+								<div class="actual">待取车辆数：50</div>
+								<div class="actual">使用中车辆数：5</div>
+								<div class="actualMore"><a href="#">更多订单数据>></a></div>
 							</div>
 						</td>
 						<td>
@@ -63,9 +80,9 @@
 							</div>
 							<div class="layui-col-md9">
 								<div>车辆信息</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">已租出：5</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">待租出：5</div>
-								<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多车辆数据>></a></div>
+								<div class="actual">已租出：5</div>
+								<div class="actual">待租出：5</div>
+								<div class="actualMore"><a href="#">更多车辆数据>></a></div>
 							</div>
 						</td>
 					</tr>
@@ -76,9 +93,9 @@
 							</div>
 							<div class="layui-col-md9">
 								<div>用户信息</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">待审核用户：5</div>
-							<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">已审核用户：5</div>
-							<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多用户数据>></a></div>
+								<div class="actual">待审核用户：5</div>
+								<div class="actual">已审核用户：5</div>
+								<div class="actualMore"><a href="#">更多用户数据>></a></div>
 							</div>
 						</td>
 						<td>
@@ -87,8 +104,9 @@
 							</div>
 							<div class="layui-col-md9">
 								<div>押金数据</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">押金总额：￥5000</div>
-							<div style="margin-top:10px;font-size: 12px;float: right;"><a href="#">更多押金数据>></a></div>
+								<div class="actual">押金总额：￥5000</div>
+								<div class="actual">&nbsp;&nbsp;</div>
+								<div class="actualMore"><a href="#">更多押金数据>></a></div>
 							</div>
 						</td>
 					</tr>
@@ -99,8 +117,8 @@
 							</div>
 							<div class="layui-col-md9">
 								<div>今日总收入</div>
-								<div style="margin-top:10px;font-size: 12px;color: #b2b2b2"">今日订单总收入：15000</div>
-							<div style="margin-top:10px;font-size: 12px;color: #b2b2b2">今日押金总收入：15000</div>
+								<div class="actual">今日订单总收入：15000</div>
+								<div class="actual">今日押金总收入：15000</div>
 							</div>
 						</td>
 						<td></td>
@@ -118,9 +136,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u90.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>延时待处理订单</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
+									<div class="need">
+										订单数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -133,9 +154,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u109.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>押金退款申请</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">申请数据：5</div>
+									<div class="need">
+										申请数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -148,9 +172,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u98.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>待查违章订单</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">订单数据：5</div>
+									<div class="need">
+										订单数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -163,9 +190,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u100.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>待办年检车辆</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+									<div class="need">
+										车辆数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -178,9 +208,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u109.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>待保养车辆</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+									<div class="need">
+										车辆数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
@@ -193,9 +226,12 @@
 								<div class="layui-col-md2 panel_img">
 									<img src="../images/u114.png"/>
 								</div>
-								<div class="layui-col-md10 panel_word" style="text-align: left;">
+								<div class="layui-col-md10 panel_word">
 									<div>待续保车辆</div>
-									<div style="margin-top:5px;font-size: 12px;color: #b2b2b2">车辆数据：5</div>
+									<div class="need">
+										车辆数据：
+										<span>5</span>
+									</div>
 								</div>
 							</a>
 						</div>
