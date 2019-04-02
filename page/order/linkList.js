@@ -58,7 +58,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             title : "添加友链",
             type : 2,
             area : ["300px","385px"],
-            content : "page/systemSetting/linksAdd.html",
+            content : "page/order/linksAdd.html",
             success : function(layero, index){
                 var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
                 if(edit){

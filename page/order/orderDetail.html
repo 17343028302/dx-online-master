@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单详情--东西在线项目管理平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+    <div class="">
+        <div class="layui-col-lg12 layui-col-md12">
+            <div>
+                <blockquote class="layui-elem-quote title" style="font-weight: bold;">基本信息</blockquote>
+                <div class="childrenBody" style="margin-left: 10px;">
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">总订单号：</label>
+                        <span>12312321321</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">下单时间：</label>
+                        <span>2018.12.29  12:34:56</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">租车人姓名：</label>
+                        <span>王大大</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">租车人联系电话：</label>
+                        <span>13567788911</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <blockquote class="layui-elem-quote title" style="font-weight: bold;">租车详情</blockquote>
+                <div class="childrenBody" style="margin-left: 10px;">
+                    <!-- 此表格还需要table.render来渲染-->
+                    <table class="layui-table magt0">
+                        <colgroup>
+                            <col width="150">
+                            <col width="200">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>子订单号</th>
+                            <th>已分配车辆</th>
+                            <th>车型</th>
+                            <th>订单金额</th>
+                            <th>延时费用</th>
+                            <th>维修费用</th>
+                            <th>用车进度</th>
+                            <th>取车时间</th>
+                            <th>还车时间</th>
+                            <th>还车时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1109876001001</td>
+                            <td>京E 34H56</td>
+                            <td>北奔重卡</td>
+                            <td>240.00</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>已还车待支付</td>
+                            <td>2018.12.30 8:00:00</td>
+                            <td>2019.01.02 20:00:00</td>
+                            <td>发送对账单</td>
+                        </tr>
+                        <tr>
+                            <td>1109876001001</td>
+                            <td>京E 34H56</td>
+                            <td>北奔重卡</td>
+                            <td>240.00</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>已还车待支付</td>
+                            <td>2018.12.30 8:00:00</td>
+                            <td>2019.01.02 20:00:00</td>
+                            <td>发送对账单</td>
+                        </tr>
+                        <tr>
+                            <td>1109876001001</td>
+                            <td>京E 34H56</td>
+                            <td>北奔重卡</td>
+                            <td>240.00</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>已还车待支付</td>
+                            <td>2018.12.30 8:00:00</td>
+                            <td>2019.01.02 20:00:00</td>
+                            <td>发送对账单</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <blockquote class="layui-elem-quote title">图片补充记录</blockquote>
+                <div class="childrenBody">
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-form-item layui-col-space12">
+                            <div class="layui-col-md4">
+                                <div class="layui-card" style="background-color: #f2f2f2">
+                                    <div class="layui-card-header" style="text-align:center">图片示例</div>
+                                    <div class="layui-card-body" style="text-align:center">
+                                        <img src="../../images/vehicle/u410.png" style="width: 300px;height: 200px"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md4">
+                                <div class="layui-card" style="background-color: #f2f2f2">
+                                    <div class="layui-card-header" style="text-align:center">上传车辆整车图片</div>
+                                    <div class="layui-card-body" style="text-align:center">
+                                        <img src="../../images/vehicle/u400.png" id="1"
+                                             style="width: 300px;height: 200px"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md4">
+                                <div class="layui-card" style="background-color: #f2f2f2">
+                                    <div class="layui-card-header" style="text-align:center">上传车辆整车图片</div>
+                                    <div class="layui-card-body" style="text-align:center">
+                                        <img src="../../images/vehicle/u400.png" id="1"
+                                             style="width: 300px;height: 200px"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <blockquote class="layui-elem-quote title">操作记录</blockquote>
+                <div class="childrenBody" style="margin-left: 10px;">
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">2019/01/01 11:35:15</label>&nbsp;&nbsp;&nbsp;
+                        <span>“用户名”取车成功，预计用车24小时；</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">2018/12/10 12:34:45</label>
+                        <span> “用户名”提交订单，选择车辆京H 234567，使用时间2019/01/01 12:00:00至2019/01/02  12:00:00；</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-inline" style="">2019/01/01 12:00:00至2019/01/02 12:00:00</label>
+                        <span>京J 234HE3 使用时间；</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="orderDetail.js"></script>
+<script type="text/javascript" src="../../js/cache.js"></script>
+</body>
+</html>

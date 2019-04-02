@@ -63,23 +63,23 @@
 	"systemeSttings": [
 		{
 			"title": "订单管理",
-			"icon": "&#xe631;",
-			"href": "page/systemSetting/basicParameter.html",
+			"icon": "icon-log",
+			"href": "page/order/orderList.html",
 			"spread": false
 		},{
 			"title": "订单详情",
-			"icon": "icon-log",
-			"href": "page/systemSetting/logs.html",
+			"icon": "&#xe631;",
+			"href": "page/order/orderDetail.html",
 			"spread": false
 		},{
 			"title": "友情链接",
 			"icon": "&#xe64c;",
-			"href": "page/systemSetting/linkList.html",
+			"href": "page/order/linkList.html",
 			"spread": false
 		},{
 			"title": "图标管理",
 			"icon": "&#xe857;",
-			"href": "page/systemSetting/icons.html",
+			"href": "page/order/icons.html",
 			"spread": false
 		}
 	],
