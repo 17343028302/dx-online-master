@@ -96,7 +96,7 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
         httpUtil.post('/user/erp/user/login', obj).then(res => {
             if(res.status==0){
                 setTimeout(function () {
-                    window.location.href = "/dx-online-master/index.html";
+                    window.location.href = "/index.html";
                 }, 1000);
             }else{
                 console.log("接口响应，code:"+res.status+",message:"+res.message);
