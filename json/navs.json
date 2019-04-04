@@ -107,17 +107,46 @@
 		{
 			"title": "押金列表",
 			"icon": "icon-mokuai",
-			"href": "page/doc/addressDoc.html",
+			"href": "page/finance/depositList.html",
 			"spread": false
 		},{
 			"title": "预充值账户管理",
 			"icon": "icon-mokuai",
-			"href": "page/doc/bodyTabDoc.html",
+			"href": "page/finance/prechargeList.html",
+			"spread": false
+		},
+		{
+			"title": "发票管理",
+			"icon": "&#xe630;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "发票列表",
+					"icon": "&#xe61c;",
+					"href": "page/finance/invoiceList.html",
+					"spread": false
+				},{
+					"title": "开票详情",
+					"icon": "&#xe61c;",
+					"href": "page/finance/invoiceDetail.html",
+					"spread": false
+				}
+			]
+		},{
+			"title": "押金列表",
+			"icon": "icon-mokuai",
+			"href": "page/finance/addressDoc.html",
+			"spread": false
+		},{
+			"title": "预充值账户管理",
+			"icon": "icon-mokuai",
+			"href": "page/finance/bodyTabDoc.html",
 			"spread": false
 		},{
 			"title": "发票管理",
 			"icon": "icon-mokuai",
-			"href": "page/doc/navDoc.html",
+			"href": "page/finance/navDoc.html",
 			"spread": false
 		}
 	]

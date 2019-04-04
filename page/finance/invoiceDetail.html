@@ -23,56 +23,55 @@
 </form>
 <div class="layui-col-lg12 layui-col-md12">
     <fieldset class="layui-elem-field">
-        <legend>会员卡管理</legend>
+        <legend>开票信息</legend>
         <div class="layui-field-box">
             <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <label class="layui-inline" style="">持卡人：</label>
-                    <span>张三</span>
+                <div class="layui-form-item" style="margin-bottom: 5px;">
+                    <label class="layui-inline">发票抬头：</label>
+                    <span>北京市水果供应公司</span>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-inline" style="">充值账户可用余额：</label>
-                    <span>123400</span>
+                    <label class="layui-inline">纳税人识别号：</label>
+                    <span>91022837246BT23873</span>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-inline" style="">充值账户已花费金额：</label>
-                    <span>400</span>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-inline" style="">充值账户押金：</label>
+                <div class="layui-form-item" style="margin-top: 20px;margin-bottom: 5px;">
+                    <label class="layui-inline">开票金额：</label>
                     <span>3000.00</span>
                 </div>
-            </div>
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-warm">重置密码</button>
+                <div class="layui-form-item" style="margin-bottom: 5px;">
+                    <label class="layui-inline">开票方式：</label>
+                    <span>纸质</span>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn">启用会员卡</button>
+                    <label class="layui-inline">备注信息：</label>
+                    <span></span>
+                </div>
+                <div class="layui-form-item" style="margin-top: 20px;margin-bottom: 5px;">
+                    <label class="layui-inline">收件人：</label>
+                    <span>李老板</span>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 5px;">
+                    <label class="layui-inline">联系电话：</label>
+                    <span>13566778899</span>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 5px;">
+                    <label class="layui-inline">预留邮箱：</label>
+                    <span>123.45@163.com</span>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-danger">冻结会员卡</button>
+                    <label class="layui-inline">北京市顺义区大王镇：</label>
+                    <span>13566778899</span>
                 </div>
             </div>
         </div>
     </fieldset>
     <fieldset class="layui-elem-field">
-        <legend>会员充值记录</legend>
+        <legend>关联订单记录</legend>
         <div class="layui-field-box">
             <form class="layui-form">
                 <blockquote class="layui-elem-quote quoteBox">
                     <form class="layui-form">
-                        <div class="layui-inline">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">提交时间：</label>
-                                <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                                    <input type="text" class="layui-input" id="subTime" style="width: 300px;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <a class="layui-btn search_btn" data-type="reload">查询</a>
-                        </div>
+
                     </form>
                 </blockquote>
                 <table id="newsList" lay-filter="newsList"></table>
@@ -82,6 +81,6 @@
 </div>
 </div>
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="vipDetail.js"></script>
+<script type="text/javascript" src="invoiceDetail.js"></script>
 </body>
 </html>
