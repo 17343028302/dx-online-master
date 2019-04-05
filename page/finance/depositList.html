@@ -19,13 +19,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">缴纳时间：</label>
                 <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <input type="text" class="layui-input" id="orderTime" style="width: 300px;">
+                    <input type="text" class="layui-input" id="payTime" style="width: 300px;">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">订单号：</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input searchVal" placeholder="请输入车牌号"/>
+                    <input type="text" class="layui-input searchVal" placeholder="请输入号订单号"/>
                 </div>
             </div>
             <div class="layui-inline">
@@ -38,9 +38,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label">押金状态：</label>
                 <div class="layui-input-inline" style="margin-top: 10px;">
-                    <input type="checkbox" name="" title="待退审核" lay-skin="primary">
-                    <input type="checkbox" name="" title="使用中" lay-skin="primary">
-                    <input type="checkbox" name="" title="已退还" lay-skin="primary">
+                    <input type="checkbox" name="" title="待退审核" value="1" lay-skin="primary">
+                    <input type="checkbox" name="" title="使用中" value="0" lay-skin="primary">
+                    <input type="checkbox" name="" title="已退还" value="2" lay-skin="primary">
                 </div>
             </div>
             <div class="layui-inline">
@@ -50,9 +50,30 @@
     </blockquote>
 </form>
 
-<table id="orderList" lay-filter="orderList"></table>
+<!-- 列表 -->
+<table id="depositList" lay-filter="depositList"></table>
+
+<!-- 押金状态 -->
+<script type="text/html" id="status">
+    {{#  if(d.status == "1"){ }}
+    <span class="layui-red">待退审核</span>
+    {{#  } else if(d.status == "2"){ }}
+    <span class="layui-blue">已退款</span>
+    {{#  } else { }}
+    正常使用中
+    {{#  }}}
+</script>
+<!-- 押金类型 -->
+<script type="text/html" id="type">
+    {{#  if(d.type == "1"){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-xs">线上直充</span>
+    {{#  } else if(d.type == "2"){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-xs">线下打款</span>
+    {{#  } else { }}
+    {{#  }}}
+</script>
 <!--操作-->
-<script type="text/html" id="orderListBar">
+<script type="text/html" id="depositListBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看租车记录</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">退还押金</a>
 </script>
