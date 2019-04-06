@@ -1,18 +1,69 @@
 layui.config({
-    base : "../../js/"
+    base: "../../js/"
 }).extend({
-    "httpUtil": "httpUtil",
+   // "vehicleOptionData": "page/vehicle/vehicleOptionData"//此处keyvalue必须一致，也必须和
 })
-layui.use(['form','layer','table','laytpl','vehicleOptionData','httpUtil'],function(){
+layui.use(['form','layer','table','laytpl','httpUtil'],function(){
     var form = layui.form,
         //layer = parent.layer === undefined ? layui.layer : top.layer,
         layer = layui.layer,
         $ = layui.jquery,
         laytpl = layui.laytpl,
-        table = layui.table,
-        vStatus = layui.vehicleOptionData;
-        httpUtil = layui.httpUtil;
-    httpUtil.md
+        table = layui.table;
+    var httpUtil = layui.httpUtil;
+
+    var data = { //数据
+        "title": "Layui常用模块"
+        ,
+        "list": [{"modname": "弹层", "alias": "layer", "site": "layer.layui.com"}, {
+            "modname": "表单",
+            "alias": "form",
+            "site": "layer.layui.com22"
+        }]
+    };
+
+        /*httpUtil.get('/user/erp/token/create', {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                var html =  '<select name="city" lay-verify="required"  > ';
+
+                $.each(data.list,function (index,item) {
+                    html += '<option value="0">'+item.modname+'</option>';
+                })
+                html += '</select>';
+                document.getElementById("vehicleTypeData").innerHTML = html;
+
+                //callback(res.data);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })*/
+
+
+    vStatusAjax(function (data) {
+        var vehicleTypeData = document.getElementById('vehicleStatusData');
+        laytpl(vehicleTypeData.innerHTML).render(data, function(html){
+            vehicleTypeData.innerHTML = html;
+        });
+        form.render();
+    });
+   // var vtScript = document.getElementById('vtScript').innerHTML;
+
+
+
+    var vehicleNumberData = document.getElementById('vehicleNumberData');
+    laytpl(vehicleNumberData.innerHTML).render(data, function(html){
+        vehicleNumberData.innerHTML = html;
+    });
+
 
 
     //车辆列表
@@ -129,7 +180,6 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData','httpUtil'],funct
             layer.msg("请选择取消发布的车辆",{time:1000});
         }
     });
-
     //批量删除
     $(".batchDel").click(function(){
         var checkStatus = table.checkStatus('vehicleListTable'),
@@ -191,9 +241,6 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData','httpUtil'],funct
             layui.layer.full(window.sessionStorage.getItem("index"));
         })*/
     }
-
-
-
     //列表操作
     table.on('tool(userList)', function(obj){
         var layEvent = obj.event,
@@ -233,4 +280,149 @@ layui.use(['form','layer','table','laytpl','vehicleOptionData','httpUtil'],funct
         }
     });
 
+    // 请求接口方法==================================================================
+    //卡车选项请求 统一返回{"id":"","name":""}
+    var s = 'https://erpapi-qa.dxzaixian.com',
+        ss = '?token=95d5603c75154cfa8fd4a0d779aed5e4';
+    var vStatusUrl = s + '/truck/erp/truck/status' + ss;
+    var vUseTypeUrl = s + '/truck/erp/truck/usageMode' + ss;
+    var vTypeUrl = s + '/truck/erp/truck/type' + ss;
+    var vBrandUrl = s + '/truck/erp/truck/brand' + ss;
+    var vColorUrl = s + '/truck/erp/truck/color' + ss;
+    var vFuelUrl = s + '/truck/erp/truck/fuel' + ss;
+    /**
+     * 卡车状态 1待发布 2待租出 3已租出 4检修中
+     */
+    function vStatusAjax(callback) {
+        httpUtil.get(vStatusUrl, {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res.data);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    /**
+     * 卡车使用方式 1自购 2长期挂靠 3临时
+     */
+    function vUseTypeAjax(callback) {
+        httpUtil.get(vUseTypeUrl, {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    /**
+     * 卡车类型 1中型面包 2大型面包 ...
+     */
+    function vTypeAjax(callback) {
+        httpUtil.get('/user/erp/token/create', {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    /**
+     * 卡车品牌
+     */
+    function vBrandAjax(callback) {
+        httpUtil.get('/user/erp/token/create', {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    /**
+     * 卡车颜色
+     */
+    function vColorAjax(callback) {
+        httpUtil.get('/user/erp/token/create', {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    /**
+     * 卡车燃油型号
+     */
+    function vFuelAjax(callback) {
+        httpUtil.get('/user/erp/token/create', {}).then(res => {
+            if(res.status==0){
+                window.localStorage.setItem('dxToken', res.data);
+                //return 123;
+                callback(res);
+
+            }else{
+                console.log("接口响应，code:"+res.status+",message:"+res.message);
+                layer.msg(res.message, {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 })
