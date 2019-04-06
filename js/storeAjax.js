@@ -21,8 +21,8 @@ layui.define(["jquery","httpUtil"], function (exports) {
     function getAllStoreAjax(callback) {
         httpUtil.get(storeUrl, param).then(res => {
             if(res.status==0){
-                window.localStorage.setItem("allStoreData",JSON.stringify(res.data));
-                callback(res.data);
+                window.localStorage.setItem("allStoreData",JSON.stringify(res.data.items));
+                callback(res.data.items);
 
             }else{
                 console.log("接口响应，code:"+res.status+",message:"+res.message);

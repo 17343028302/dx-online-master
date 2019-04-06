@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../../css/public.css" media="all" />
 </head>
-<body class="">
+<body class="childrenBody">
 <form class="layui-form">
 	<blockquote class="layui-elem-quote quoteBox">
 		<form class="layui-form" lay-filter="formFilter">
@@ -91,15 +91,15 @@
 		</div>
 		<div class="layui-col-md layui-col-md-offset11">
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-warm addVehicle_btn">+添加新车</a>
+				<a  class="layui-btn layui-btn-warm addVehicle_btn">+添加新车</a>
 			</div>
 		</div>
 	</div>
+</form>
 
 
 
 	<table id="vehicleList" lay-filter="userList"></table>
-
 	<!--操作-->
 	<script type="text/html" id="userListBar">
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑车辆详情</a>
@@ -107,7 +107,6 @@
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="usable">取消发布</a>
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">发布</a>
 	</script>
-</form>
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="vehicleList.js"></script>
 

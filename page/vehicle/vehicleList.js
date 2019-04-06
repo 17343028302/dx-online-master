@@ -91,10 +91,10 @@ layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','st
         page : true,
         height : "full-125",
         limits : [30,50,100,150,200],
-        limit : 20,
+        limit : 30,
         id : "vehicleListTable",
         cols : [[
-            {field: 'id', type: "checkbox", fixed:"left", width:50},
+            { type: "checkbox", fixed:"left", width:50},
             {field: 'plateNo', title: '车牌号', minWidth:100, align:"center"},
             {field: 'typeId', title: '车辆类型', minWidth:200, align:'center',templet:function(d){
                 return layui.common("vehicleTypeData",d.typeId);
@@ -142,8 +142,11 @@ layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','st
     $(".batchRelease").click(function(){
         var checkStatus = table.checkStatus('vehicleListTable'),
             data = checkStatus.data,
-            newsId = [];
+            vehicleIds = [];
         if(data.length > 0) {
+            for (var i in data) {
+                vehicleIds.push(data[i].id);
+            }
             layer.open({
                 area: ['580px', '320px'],
                 title: "批量发布",
@@ -151,33 +154,30 @@ layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','st
                 type: 2,
                 content: 'vehicleRelease.html'
             })
+            localStorage.setItem("vehicleIds",JSON.stringify(vehicleIds));
         }else {
             layer.msg("请选择需要发布的车辆",{time:1000});
         }
     });
-    //批量发布确认
+    // 二级页面 批量发布确认
     $(".releaseConfirm").click(function(){
-        var checkStatus = table.checkStatus('vehicleListTable'),
-            data = checkStatus.data,
-            newsId = [];
-        if(data.length > 0) {
-            for (var i in data) {
-                newsId.push(data[i].id);
-            }
-            layer.confirm('是否确认将京H 34H5X  京E 67H5X 发布至门店 北京三元桥店?', {icon: 3, title:'是否确认发布',btn:['确认发布','取消'] }, function(index){
-                //do something
-
-                setTimeout(function () {
-                    //关闭父级弹窗
-                    parent.layer.close(index);
-                    tableIns.reload();
-                    layer.msg("发布成功")
-                },500)
-                return false;
-            });
-        }else {
-            layer.msg("请选择需要发布的车辆",{time:1000});
+        var vehicleIds = JSON.parse(localStorage.getItem("vehicleIds"));
+        if($("#storeData").val() == ''){
+            layer.msg("请选择需要发布的门店",{time:1000});
+            return;
         }
+        layer.confirm('是否确认将京H 34H5X  京E 67H5X 发布至门店 北京三元桥店?', {icon: 3, title:'是否确认发布',btn:['确认发布','取消'] }, function(index){
+            //do something
+
+            setTimeout(function () {
+                //关闭父级弹窗
+                parent.layer.close(index);
+                tableIns.reload();
+                layer.msg("发布成功")
+            },500)
+            return false;
+        });
+
     });
     //批量取消发布
     $(".batchCancelRelease").click(function(){
@@ -217,14 +217,29 @@ layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','st
                 title: '是否批量删除',
                 btn: ['确认删除', '取消']
             }, function (index) {
-                //do something
-
-                setTimeout(function () {
-                    layer.close(index);
-                    tableIns.reload();
-                    layer.msg("删除成功")
-                }, 500)
-                return false;
+                var param = {
+                    id: newsId.join(),
+                    token : "95d5603c75154cfa8fd4a0d779aed5e4"
+                }
+                httpUtil.post('/truck/erp/truck/delete',param).then(res => {
+                    if(res.status==0){
+                        setTimeout(function () {
+                            layer.close(index);
+                            tableIns.reload();
+                            layer.msg("删除成功")
+                        }, 500)
+                        return false;
+                    }else{
+                        console.log("接口响应，code:"+res.status+",message:"+res.message);
+                        layer.msg(res.message, {
+                            icon: 2,
+                            time: 2000
+                        });
+                        return false;
+                    }
+                }).catch(error => {
+                    console.log(error)
+                })
             });
         }else {
             layer.msg("请选择需要删除的车辆",{time:1000});
@@ -232,9 +247,18 @@ layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','st
     });
     //添加新车
     $(".addVehicle_btn").click(function(){
-        addVehicle();
+        // 添加新窗口
+        $("body").on("click",".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')",function(){
+            //如果不存在子级
+            if($(this).siblings().length == 0){
+                addTab($(this));
+                $('body').removeClass('site-mobile');  //移动端点击菜单关闭菜单层
+            }
+            $(this).parent("li").siblings().removeClass("layui-nav-itemed");
+        })
     })
     function addVehicle(edit){
+
         var index = layer.open({
             title : "添加新车",
             type : 2,
