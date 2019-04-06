@@ -3,7 +3,7 @@ layui.config({
 }).extend({
    // "vehicleOptionData": "page/vehicle/vehicleOptionData"//此处keyvalue必须一致，也必须和
 })
-layui.use(['form','layer','table','laytpl','httpUtil'],function(){
+layui.use(['form','layer','table','laytpl','httpUtil','common','vehicleAjax','storeAjax'],function(){
     var form = layui.form,
         //layer = parent.layer === undefined ? layui.layer : top.layer,
         layer = layui.layer,
@@ -11,17 +11,42 @@ layui.use(['form','layer','table','laytpl','httpUtil'],function(){
         laytpl = layui.laytpl,
         table = layui.table;
     var httpUtil = layui.httpUtil;
+    var vehicleAjax = layui.vehicleAjax;
+    var storeAjax = layui.storeAjax;
 
-    var data = { //数据
-        "title": "Layui常用模块"
-        ,
-        "list": [{"modname": "弹层", "alias": "layer", "site": "layer.layui.com"}, {
-            "modname": "表单",
-            "alias": "form",
-            "site": "layer.layui.com22"
-        }]
-    };
+// 请求接口方法=============================最先请求枚举相关ajax=====================================
+    vehicleAjax.vBrandAjax();
+    vehicleAjax.vTypeAjax(function (data) {
+        var vehicleTypeData = document.getElementById('vehicleTypeData');
+        laytpl(vehicleTypeData.innerHTML).render(data, function(html){
+            vehicleTypeData.innerHTML = html;
+        });
+        form.render();
+    })
 
+    vehicleAjax.vStatusAjax(function (data) {
+        var vehicleTypeData = document.getElementById('vehicleStatusData');
+        laytpl(vehicleTypeData.innerHTML).render(data, function(html){
+            vehicleTypeData.innerHTML = html;
+        });
+        form.render();
+    });
+
+    storeAjax.getAllStoreAjax(function (data) {
+        var storeData = document.getElementById('storeData');
+        laytpl(storeData.innerHTML).render(data, function(html){
+            storeData.innerHTML = html;
+        });
+        form.render();
+    })
+
+    storeAjax.getAllStoreAjax(function (data) {
+        var releaseStoreData = document.getElementById('releaseStoreData');
+        laytpl(releaseStoreData.innerHTML).render(data, function(html){
+            releaseStoreData.innerHTML = html;
+        });
+        form.render();
+    })
         /*httpUtil.get('/user/erp/token/create', {}).then(res => {
             if(res.status==0){
                 window.localStorage.setItem('dxToken', res.data);
@@ -48,28 +73,20 @@ layui.use(['form','layer','table','laytpl','httpUtil'],function(){
         })*/
 
 
-    vStatusAjax(function (data) {
-        var vehicleTypeData = document.getElementById('vehicleStatusData');
-        laytpl(vehicleTypeData.innerHTML).render(data, function(html){
-            vehicleTypeData.innerHTML = html;
-        });
-        form.render();
-    });
-   // var vtScript = document.getElementById('vtScript').innerHTML;
-
-
-
-    var vehicleNumberData = document.getElementById('vehicleNumberData');
-    laytpl(vehicleNumberData.innerHTML).render(data, function(html){
-        vehicleNumberData.innerHTML = html;
-    });
-
-
-
     //车辆列表
     var tableIns = table.render({
         elem: '#vehicleList',//指定原始表格元素选择器（推荐id选择器）
-        url : '../../json/vehicleList.json',
+        //url : '../../json/vehicleList.json',
+        url: 'http://dongximgr.zhuzhida.vip/api/truck/erp/truck/search',
+        method: 'GET',
+        where: {token:"95d5603c75154cfa8fd4a0d779aed5e4"},
+        response: {
+            statusName: 'status'
+            ,statusCode: 0
+            ,msgName: 'msg'
+            ,countName: 'data.total'
+            ,dataName: 'data.items'
+        },
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -77,31 +94,31 @@ layui.use(['form','layer','table','laytpl','httpUtil'],function(){
         limit : 20,
         id : "vehicleListTable",
         cols : [[
-            {type: "checkbox", fixed:"left", width:50},
-            {field: 'userName', title: '车牌号', minWidth:100, align:"center"},
-            {field: 'userEmail', title: '车辆类型', minWidth:200, align:'center',templet:function(d){
-                return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
+            {field: 'id', type: "checkbox", fixed:"left", width:50},
+            {field: 'plateNo', title: '车牌号', minWidth:100, align:"center"},
+            {field: 'typeId', title: '车辆类型', minWidth:200, align:'center',templet:function(d){
+                return layui.common("vehicleTypeData",d.typeId);
             }},
-            {field: 'userSex', title: '车辆品牌', align:'center'},
-            {field: 'userStatus', title: '载重',  align:'center',templet:function(d){
-                return d.userStatus == "0" ? "正常使用" : "限制使用";
+            {field: 'brandId', title: '车辆品牌', align:'center',templet:function (d) {
+                return layui.common("vehicleBrandData",d.brandId);
             }},
-            {field: 'userGrade', title: '所属门店', align:'center',templet:function(d){
-                if(d.userGrade == "0"){
-                    return "注册会员";
-                }else if(d.userGrade == "1"){
-                    return "中级会员";
-                }else if(d.userGrade == "2"){
-                    return "高级会员";
-                }else if(d.userGrade == "3"){
-                    return "钻石会员";
-                }else if(d.userGrade == "4"){
-                    return "超级会员";
-                }
+            {field: 'load', title: '载重',  align:'center'},
+            {field: 'storeId', title: '所属门店', align:'center',templet:function(d){
+                return layui.common("allStoreData",d.storeId);
             }},
-            {field: 'userSex', title: '当前发布门店', align:'center'},
-            {field: 'userSex', title: '车辆状态', align:'center'},
-            {field: 'userEndTime', title: '使用时间', align:'center'},
+            {field: 'storeId', title: '当前发布门店', align:'center',templet:function(d){
+                if(d.storeId == 1){
+                    return "北三环店";
+                }else if(d.storeId == 2){
+                    return "百子湾店";
+                }else if(d.storeId == 3){
+                    return "回龙观西店";
+                }else return "";
+            }},
+            {field: 'status', title: '车辆状态', align:'center',templet:function(d){
+                return layui.common("vehicleStatusData",d.status);
+            }},
+            {field: 'plateNo', title: '使用时间', align:'center'},
             {title: '操作',width:250,  templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
@@ -123,14 +140,20 @@ layui.use(['form','layer','table','laytpl','httpUtil'],function(){
     });
     //批量发布弹窗
     $(".batchRelease").click(function(){
-
-        layer.open({
-            area: ['550px', '280px'],
-            title :"批量发布",
-            //closeBtn : false,
-            type : 2,
-            content: 'vehicleRelease.html'
-        })
+        var checkStatus = table.checkStatus('vehicleListTable'),
+            data = checkStatus.data,
+            newsId = [];
+        if(data.length > 0) {
+            layer.open({
+                area: ['580px', '320px'],
+                title: "批量发布",
+                //closeBtn : false,
+                type: 2,
+                content: 'vehicleRelease.html'
+            })
+        }else {
+            layer.msg("请选择需要发布的车辆",{time:1000});
+        }
     });
     //批量发布确认
     $(".releaseConfirm").click(function(){
@@ -280,149 +303,5 @@ layui.use(['form','layer','table','laytpl','httpUtil'],function(){
         }
     });
 
-    // 请求接口方法==================================================================
-    //卡车选项请求 统一返回{"id":"","name":""}
-    var s = 'https://erpapi-qa.dxzaixian.com',
-        ss = '?token=95d5603c75154cfa8fd4a0d779aed5e4';
-    var vStatusUrl = s + '/truck/erp/truck/status' + ss;
-    var vUseTypeUrl = s + '/truck/erp/truck/usageMode' + ss;
-    var vTypeUrl = s + '/truck/erp/truck/type' + ss;
-    var vBrandUrl = s + '/truck/erp/truck/brand' + ss;
-    var vColorUrl = s + '/truck/erp/truck/color' + ss;
-    var vFuelUrl = s + '/truck/erp/truck/fuel' + ss;
-    /**
-     * 卡车状态 1待发布 2待租出 3已租出 4检修中
-     */
-    function vStatusAjax(callback) {
-        httpUtil.get(vStatusUrl, {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res.data);
 
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    /**
-     * 卡车使用方式 1自购 2长期挂靠 3临时
-     */
-    function vUseTypeAjax(callback) {
-        httpUtil.get(vUseTypeUrl, {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res);
-
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    /**
-     * 卡车类型 1中型面包 2大型面包 ...
-     */
-    function vTypeAjax(callback) {
-        httpUtil.get('/user/erp/token/create', {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res);
-
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    /**
-     * 卡车品牌
-     */
-    function vBrandAjax(callback) {
-        httpUtil.get('/user/erp/token/create', {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res);
-
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-    /**
-     * 卡车颜色
-     */
-    function vColorAjax(callback) {
-        httpUtil.get('/user/erp/token/create', {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res);
-
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-    /**
-     * 卡车燃油型号
-     */
-    function vFuelAjax(callback) {
-        httpUtil.get('/user/erp/token/create', {}).then(res => {
-            if(res.status==0){
-                window.localStorage.setItem('dxToken', res.data);
-                //return 123;
-                callback(res);
-
-            }else{
-                console.log("接口响应，code:"+res.status+",message:"+res.message);
-                layer.msg(res.message, {
-                    icon: 2,
-                    time: 2000
-                });
-                return false;
-            }
-        }).catch(error => {
-            console.log(error)
-        })
-    }
 })

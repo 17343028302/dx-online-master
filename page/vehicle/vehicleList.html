@@ -28,10 +28,10 @@
 					<label class="layui-form-label">车辆类型</label>
 					<div class="layui-input-block">
 						<select name="city" lay-verify="required" id="vehicleTypeData">
-							<option value="0">请选择</option>
-							<!--{{# $.each(d.list,function(index,item){   }}
-							<option value="1">{{item.modname}}</option>
-							{{# });		}}-->
+							<option value="">请选择</option>
+							{{# layui.each(d,function(index,item){   }}
+							<option value="1">{{item.name}}</option>
+							{{# });		}}
 						</select>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 					<div class="layui-input-block">
 						<select name="city" lay-verify="required" id="vehicleStatusData">
 							<option value="">请选择</option>
-							{{# $.each(d,function(index,item){   }}
+							{{# layui.each(d,function(index,item){   }}
 							<option value="1">{{item.name}}</option>
 							{{# });		}}
 						</select>
@@ -51,20 +51,22 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">所属门店</label>
 					<div class="layui-input-block">
-						<select name="city" lay-verify="required">
+						<select name="city" lay-verify="required" id="storeData">
 							<option value="">请选择</option>
-							<option value="0">北京</option>
-							<option value="1">上海</option>
+							{{# layui.each(d,function(index,item){   }}
+							<option value="1">{{item.name}}</option>
+							{{# });		}}
 						</select>
 					</div>
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">发布门店</label>
 					<div class="layui-input-block">
-						<select name="city" lay-verify="required">
+						<select name="city" lay-verify="required" id="releaseStoreData">
 							<option value="">请选择</option>
-							<option value="0">北京</option>
-							<option value="1">上海</option>
+							{{# layui.each(d,function(index,item){   }}
+							<option value="1">{{item.name}}</option>
+							{{# });		}}
 						</select>
 					</div>
 				</div>

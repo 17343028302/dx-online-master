@@ -17,10 +17,11 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label" style="width: 100px">选择发布门店：</label>
 		<div class="layui-input-inline">
-			<select name="city" lay-verify="required">
+			<select name="city" lay-verify="required" id="vehicleStatusData">
 				<option value="">请选择</option>
-				<option value="0">北京</option>
-				<option value="1">上海</option>
+				{{# layui.each(d,function(index,item){   }}
+				<option value="1">{{item.name}}</option>
+				{{# });		}}
 			</select>
 		</div>
 	</div>
