@@ -25,22 +25,22 @@
             <div class="layui-inline">
                 <label class="layui-form-label">订单号：</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input searchVal" placeholder="请输入号订单号"/>
+                    <input type="text" class="layui-input" id="id" placeholder="请输入号订单号" lay-verify="number"/>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">联系电话：</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input searchVal" placeholder="请输入联系电话"
-                           lay-verify="required|number"/>
+                    <input type="text" class="layui-input" id="phone" placeholder="请输入联系电话"
+                           lay-verify="number"/>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">押金状态：</label>
                 <div class="layui-input-inline" style="margin-top: 10px;">
-                    <input type="checkbox" name="" title="待退审核" value="1" lay-skin="primary">
-                    <input type="checkbox" name="" title="使用中" value="0" lay-skin="primary">
-                    <input type="checkbox" name="" title="已退还" value="2" lay-skin="primary">
+                    <input type="checkbox" name="status" title="待退审核" value="1" lay-skin="primary">
+                    <input type="checkbox" name="status" title="使用中" value="0" lay-skin="primary">
+                    <input type="checkbox" name="status" title="已退还" value="2" lay-skin="primary">
                 </div>
             </div>
             <div class="layui-inline">

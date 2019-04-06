@@ -54,8 +54,7 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
         createToken(function (token) {
             var phone = $("#phone").val();
             let obj = {
-                phone: phone,
-                token: token
+                phone: phone
             };
             httpUtil.post('/user/erp/sms/sendCode', obj).then(res => {
                 if(res.status==0){
@@ -90,13 +89,12 @@ layui.use(['jquery', 'form', 'layer', 'httpUtil'], function () {
         $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
         let obj = {
             phone: $("#phone").val(),
-            code: $("#code").val(),
-            token: token
+            code: $("#code").val()
         };
         httpUtil.post('/user/erp/user/login', obj).then(res => {
             if(res.status==0){
                 setTimeout(function () {
-                    window.location.href = "/index.html";
+                    window.location.href = "/dx-online-master/index.html";
                 }, 1000);
             }else{
                 console.log("接口响应，code:"+res.status+",message:"+res.message);

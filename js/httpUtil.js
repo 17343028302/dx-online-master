@@ -1,9 +1,9 @@
-layui.define(["form", "jquery"], function (exports) {
+layui.define(["form", "jquery","constants"], function (exports) {
     var form = layui.form,
-        $ = layui.jquery;
-    var config = {
-        baseUrl: 'http://dongximgr.zhuzhida.vip/api'
-    }
+        $ = layui.jquery,
+        constants = layui.constants;
+
+    var baseUrl = constants.baseUrl;
 
     var dongxiHttp =
         {
@@ -15,6 +15,51 @@ layui.define(["form", "jquery"], function (exports) {
             }
         }
 
+    //请求监听器，监听所有ajax请求
+    $(function () {
+        $.ajaxSetup({
+            async : false,
+            global: true,
+            beforeSend: function (jqXHR, settings) {
+                console.log(settings);
+                var url = settings.url;
+                //获取token接口，不用传token，其余接口都需要传token
+                if(url.indexOf("user/erp/token/create")==-1){
+                    var token = localStorage.getItem("dxToken");
+                    if(token == null || token == ''){
+                        layer.msg("系统异常，请重新登录！", {
+                            icon: 2,
+                            time: 2000
+                        });
+                        return false;
+                    }
+                    //在请求前修改url（增加token）
+                    settings.url += settings.url.match(/\?/) ? "&" : "?";
+                    settings.url += "token=" + token;
+                }
+                console.log(settings);
+            },complete: function(XMLHttpRequest, textStatus) {
+                if(XMLHttpRequest.status==200){
+                    if(XMLHttpRequest.responseJSON.status==2 || XMLHttpRequest.responseJSON.status==3){
+                        layer.msg("登录失效请重新登录！", {
+                            icon: 2,
+                            time: 1000
+                        });
+                        setTimeout(function () {
+                            window.top.location.href = "/dx-online-master/page/login/login.html";
+                        }, 1000);
+                    }
+                }
+            },error:function (jqXHR) {
+                layer.msg("系统错误，请稍后再试！", {
+                    icon: 2,
+                    time: 2000
+                });
+            }
+        });
+    });
+
+    //ajax请求封装方法
     function request(method = 'post', cmd, param) {
         return new Promise((resove, reject) => {
             // urlEncode
@@ -48,7 +93,7 @@ layui.define(["form", "jquery"], function (exports) {
             }
             var sign = md5(signStr);
             // var url = `${self.host}${cmd}?${params}&sign=${sign}`;
-            var url = `${config.baseUrl}${cmd}`;
+            var url = baseUrl+`${cmd}`;
             if (contentType == 'application/x-www-form-urlencoded') {
                 param.sign = sign;
             } else {
@@ -70,10 +115,15 @@ layui.define(["form", "jquery"], function (exports) {
                 dataType: "json",
                 success: function (response) {
                     console.log(response)
-                    resData.status=response.status;
-                    resData.message=response.msg;
-                    resData.data=response.data;
-                    resove(resData);
+                    if(response.status==3){
+                        console.log("登录失效");
+                        window.top.location.href="/login.html";
+                    }else{
+                        resData.status=response.status;
+                        resData.message=response.msg;
+                        resData.data=response.data;
+                        resove(resData);
+                    }
                 }, error: function (jqXHR) {
                     layer.msg("系统错误，请稍后再试！", {
                         icon: 2,
@@ -84,8 +134,6 @@ layui.define(["form", "jquery"], function (exports) {
             });
         })
     }
-
-    exports("httpUtil", dongxiHttp);
 
     function md5(string) {
         var x = Array();
@@ -289,4 +337,6 @@ layui.define(["form", "jquery"], function (exports) {
         }
         return utftext;
     }
+
+    exports("httpUtil", dongxiHttp);
 })
