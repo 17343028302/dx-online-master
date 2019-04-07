@@ -48,6 +48,12 @@ layui.define(["form", "jquery","constants"], function (exports) {
                         setTimeout(function () {
                             window.top.location.href = "/dx-online-master/page/login/login.html";
                         }, 1000);
+                    }else if(XMLHttpRequest.responseJSON.status==-1){
+                        layer.msg(XMLHttpRequest.responseJSON.msg, {
+                            icon: 2,
+                            time: 1000
+                        });
+                        return false;
                     }
                 }
             },error:function (jqXHR) {

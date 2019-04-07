@@ -7,7 +7,7 @@
     for (var i in list){
         var dkey = list[i];
         //避免接口不给返回必要参数
-        if(!d.hasOwnProperty(dkey)){
+        if(d==null || !d.hasOwnProperty(dkey)){
             continue;
         }
         d =d[dkey];

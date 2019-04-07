@@ -5,11 +5,12 @@ layui.config({
     "constants": "constants",
     "stringUtils": "stringUtils"
 })
-layui.use(['jquery','table', 'laydate', 'layer', 'httpUtil','constants','stringUtils'], function () {
+layui.use(['jquery','table', 'laydate', 'layer', 'form', 'httpUtil','constants','stringUtils'], function () {
     var table = layui.table,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         laydate = layui.laydate,
+        form = layui.form;
         httpUtil = layui.httpUtil,
         constants = layui.constants,
         stringUtils = layui.stringUtils;
@@ -46,10 +47,10 @@ layui.use(['jquery','table', 'laydate', 'layer', 'httpUtil','constants','stringU
         limits: [30, 50, 100, 200],
         id: "depositListTable",
         cols: [[
-            {field: 'id', title: '押金订单号', width: '5%', align: "center"},
+            {field: 'id', title: '押金订单号', width: '10%', align: "center"},
             {field: 'name', title: '交押金人', width: '10%', align: "center"},
             {field: 'phone', title: '联系电话', width: '10%', align: 'center'},
-            {field: 'addTime', title: '缴纳时间', align: 'center', width: '10%',templet:function(d){
+            {field: 'addTime', title: '缴纳时间', align: 'center', width: '15%',templet:function(d){
                 return stringUtils.stampToTime(d.addTime);
             }},
             {field: 'pledge', title: '缴纳金额', align: 'center', width: '10%'},
@@ -84,7 +85,6 @@ layui.use(['jquery','table', 'laydate', 'layer', 'httpUtil','constants','stringU
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                    token:localStorage.getItem('dxToken'),
                     phone:phone,
                     id:id,
                     statusList:statusList,
@@ -95,4 +95,41 @@ layui.use(['jquery','table', 'laydate', 'layer', 'httpUtil','constants','stringU
             layer.msg("请输入搜索的内容");
         }
     });
+
+    //列表操作栏
+    table.on('tool(depositList)', function(obj){
+        var layEvent = obj.event,
+            data = obj.data;
+
+        if(layEvent === 'edit'){ //编辑
+            addUser(data);
+        }else if(layEvent === 'backDeposit'){ //退还押金
+            backDeposit(data);
+        }
+    });
+
+    //退还押金
+    function backDeposit(data){
+        var index = layui.layer.open({
+            title : "押金退还信息",
+            type : 2,
+            area: ["500px", "350px"],
+            content : "backDeposit.html",
+            success : function(layero, index){
+                var body = layui.layer.getChildFrame('body', index);
+                if(data){
+                    body.find("#id").val(data.id);
+                    body.find("#pledge").text(data.pledge);
+                    body.find("#result").text(data.pledge);
+                    form.render();
+                }
+                setTimeout(function(){
+                    layui.layer.tips('点击此处返回押金列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            }
+        })
+    }
+
 })
